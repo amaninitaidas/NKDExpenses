@@ -8,14 +8,10 @@
     <title>NKD Expenses App</title>
 
     <link rel="stylesheet" href="StylesCommon.css" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="StylesTable.css" />
+    
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <div class="primaryContainerDiv">
@@ -128,7 +124,7 @@
             id="passworTxtBox"
             placeholder="Password"
             required
-          />
+          /
           <div class="error" id="passworTxtBoxError"></div>
           <div class="button-row">
             <button
@@ -164,64 +160,182 @@
           </div>
 
           <br />
-          <h2>NKD Expense Dashboard</h2>
+          <h2>NKD Expense Dashboard</h2>         
 
-          <!-- <div class="accordion-item">
-            <button class="accordion-header">
-              Administration
-              <span class="icon">▶</span>
+          <div class="accordion-item" id="userDropdown">
+
+            <button class="accordion-header" type="button">
+                <span>User</span>
+                <span class="icon">▶</span>
             </button>
 
             <div class="accordion-content">
-              <div class="question-grid">
-                <button class="green" onclick="openTimeTableWindow()">
-                  My Class Timetable
+                <button type="button" class="user-menu-item" id="addRequisitionBttn">
+                    Raise New Requisition
                 </button>
 
-                <button class="green" onclick="openTeacherDetailsWindow()">
-                  My Teachers' Details
+                <button type="button" class="user-menu-item" id="viewRequisitionBttn">
+                    View Existing Requisition
                 </button>
-
-                <button class="green" onclick="openAttendanceDashboard()">
-                  My Attendance
-                </button>
-
-                <button class="green" onclick="openAcademicReportsScreen()">
-                  My Academic Reports
-                </button>
-              </div>
             </div>
-          </div> -->
 
-          <div class="accordion-item" id="adminDropdown" hidden>
+          </div>
+
+          <div class="accordion-item" id="financeUserDropdown">
+            <button class="accordion-header" type="button">
+                <span>Finance User</span>
+                <span class="icon">▶</span>
+            </button>
+          </div>
+          <div class="accordion-item" id="secondUserDropdown" >
+            <button class="accordion-header">
+              Second Level User
+              <span class="icon">▶</span>
+            </button>          
+          </div>
+          <div class="accordion-item" id="purchaserDropdown" >
+            <button class="accordion-header">
+              Purchaser
+              <span class="icon">▶</span>
+            </button>          
+          </div>
+          <div class="accordion-item" id="adminDropdown" >
             <button class="accordion-header">
               Administration
               <span class="icon">▶</span>
             </button>
-
-            <!-- <div class="accordion-content">
-              <div class="question-grid">
-                <button class="green" onclick="openSyllabusDashboard()">
-                  Examination Syllabus
-                </button>
-
-                <button class="green" onclick="openDateSheetWindow()">
-                  Examination Datesheet
-                </button>
-
-                <button class="green" onclick="openComputerExamWindow()">
-                  My Computers Examination
-                </button>
-              </div>
-            </div> -->
+          
           </div>
 
           <button class="red" onclick="onLogoutClick()">Logout</button>
         </div>
       </div>
+
+      <div class="popup" id="raiseNewRequisitionId">
+        <div class="popup-content scrollable-content">
+          <img
+            src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
+            alt="NKD Logo"
+          />
+
+          <div>
+            <p class="user-info-block"></p>
+          </div>
+
+          <br />
+          <div class="controlRow">
+            <label class="width30" for="expenseDate">Date:</label>
+            <input type="date" class="width70" id="expenseDate" />
+          </div>
+          <div class="controlRow">
+            <label class="width30" for="expenseDescription">Description:</label>
+            <input
+              type="text"
+              class="width70"
+              id="expenseDescription"
+            />
+          </div>
+          <div class="controlRow">
+            <label class="width30" for="expenseAmount">Amount:</label>
+            <input
+              type="text"
+              class="width70"
+              id="expenseAmount"
+            />
+          </div>
+          <div class="controlRow">
+            <label class="width30" for="expenseEndDate">ExpiryDate:</label>
+            <input type="date" class="width70" id="expenseEndDate" />
+          </div>
+          <div class="controlRow">
+              <label class="width30" for="expenseCategory">Category:</label>
+
+              <select
+                  class="width70"
+                  id="expenseCategory">
+                  <option value="">-- Select Category --</option>                  
+                  <option value="Congregation">Congregation</option>
+                  <option value="Gurukul">Gurukul</option>
+              </select>
+          </div>
+          <div class="controlRow">
+              <label class="width30" for="class">Sub Category:</label>
+              <select class="width70" id="expenseSubCategory">
+                <option value="">-- Select Student --</option>
+                <option value="Printing">Printing</option>
+                <option value="Stationary">Stationary</option>
+                <option value="Other">Other</option>
+              </select>
+          </div>                    
+
+          <div class="button-row">
+            <button class="red" id="requisitionBackBttn">Back</button>
+            <button class="red" id="resetRequisitionData">Reset</button>
+            <button class="green" id="submitRequisition">Submit</button>
+          </div>
+         
+        </div>
+      </div>          
+      
+      
+      <div class="popup" id="viewRequisitionsData">
+          <div class="popup-content scrollable-content">
+
+              <img
+                  src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
+                  alt="NKD Logo"
+              />
+
+              <div>
+                  <p class="user-info-block"></p>
+              </div>
+
+              <br />
+
+              <h3>Requisition List</h3>
+
+              <div class="table-container" id="requisitionTableContainer">
+                  <table id="requisitionTable">
+                      <thead>
+                          <tr>
+                              <th>Date</th>
+                              <th>Description</th>
+                              <th>Amount</th>
+                              <th>Expiry Date</th>
+                              <th>Category</th>
+                              <th>Sub Category</th>
+                              <th>Requestor</th>
+                              <th>Status</th>
+                              <th>Created Date</th>
+                          </tr>
+                      </thead>
+
+                      <tbody id="requisitionTableBody">
+                          <!-- Data will be populated here -->
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="button-row">
+                  <button class="red" id="requisitionListBackBttn">
+                      Back
+                  </button>
+
+                  <button class="green" id="addRequisitionFromViewBttn">
+                      Raise New Requisition
+                  </button>
+              </div>
+
+          </div>
+      </div>
+
+
+      
     </div>
 
     <script src="ScriptCommon.js"></script>
     <script src="ScriptConstants.js"></script>
+    <script src="ScriptUser.js"></script>
   </body>
 </html>
+

@@ -1,0 +1,63 @@
+/* User submenu */
+#userDropdown .accordion-content {
+  padding: 6px 10px 6px 20px;
+}
+
+/* User submenu buttons */
+#userDropdown .user-menu-item {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 4px 0;
+  padding: 8px 10px;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+/* Hover */
+#userDropdown .user-menu-item:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+#requisitionTable tbody {
+    display: table-row-group;
+}
+
+#requisitionTable tr {
+    display: table-row;
+}
+
+
+
+/* Header */
+#requisitionTable th {
+    font-weight: bold;
+}
+
+#requisitionTableContainer {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+#requisitionTable {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
+
+#requisitionTable th,
+#requisitionTable td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    white-space: nowrap;
+}
