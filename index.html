@@ -163,48 +163,14 @@
           <h2>NKD Expense Dashboard</h2>         
 
           <div class="accordion-item" id="userDropdown">
-
-            <button class="accordion-header" type="button">
-                <span>User</span>
-                <span class="icon">▶</span>
-            </button>
-
-            <div class="accordion-content">
-                <button type="button" class="user-menu-item" id="addRequisitionBttn">
-                    Raise New Requisition
-                </button>
-
-                <button type="button" class="user-menu-item" id="viewRequisitionBttn">
-                    View Existing Requisition
-                </button>
-            </div>
-
-          </div>
-
-          <div class="accordion-item" id="financeUserDropdown">
-            <button class="accordion-header" type="button">
-                <span>Finance User</span>
-                <span class="icon">▶</span>
-            </button>
-          </div>
-          <div class="accordion-item" id="secondUserDropdown" >
-            <button class="accordion-header">
-              Second Level User
-              <span class="icon">▶</span>
-            </button>          
-          </div>
-          <div class="accordion-item" id="purchaserDropdown" >
-            <button class="accordion-header">
-              Purchaser
-              <span class="icon">▶</span>
-            </button>          
-          </div>
-          <div class="accordion-item" id="adminDropdown" >
-            <button class="accordion-header">
-              Administration
-              <span class="icon">▶</span>
-            </button>
-          
+              <div class="accordion-content show">
+                  <button type="button" class="user-menu-item" id="addRequisitionBttn">
+                      Raise New Requisition
+                  </button>
+                  <button type="button" class="user-menu-item" id="viewRequisitionBttn">
+                      View Existing Requisition
+                  </button>
+              </div>
           </div>
 
           <button class="red" onclick="onLogoutClick()">Logout</button>
@@ -223,36 +189,13 @@
           </div>
 
           <br />
+
           <div class="controlRow">
-            <label class="width30" for="expenseDate">Date:</label>
-            <input type="date" class="width70" id="expenseDate" />
-          </div>
-          <div class="controlRow">
-            <label class="width30" for="expenseDescription">Description:</label>
-            <input
-              type="text"
-              class="width70"
-              id="expenseDescription"
-            />
-          </div>
-          <div class="controlRow">
-            <label class="width30" for="expenseAmount">Amount:</label>
-            <input
-              type="text"
-              class="width70"
-              id="expenseAmount"
-            />
-          </div>
-          <div class="controlRow">
-            <label class="width30" for="expenseEndDate">ExpiryDate:</label>
-            <input type="date" class="width70" id="expenseEndDate" />
-          </div>
-          <div class="controlRow">
-              <label class="width30" for="expenseCategory">Category:</label>
+              <label class="width30" for="requestCategory">Category:</label>
 
               <select
                   class="width70"
-                  id="expenseCategory">
+                  id="requestCategory">
                   <option value="">-- Select Category --</option>                  
                   <option value="Congregation">Congregation</option>
                   <option value="Gurukul">Gurukul</option>
@@ -260,13 +203,37 @@
           </div>
           <div class="controlRow">
               <label class="width30" for="class">Sub Category:</label>
-              <select class="width70" id="expenseSubCategory">
+              <select class="width70" id="requestSubCategory">
                 <option value="">-- Select Student --</option>
                 <option value="Printing">Printing</option>
                 <option value="Stationary">Stationary</option>
                 <option value="Other">Other</option>
               </select>
-          </div>                    
+          </div>
+          <div class="controlRow">
+            <label class="width30" for="requestDescription">Description:</label>
+            <input
+              type="text"
+              class="width70"
+              id="requestDescription"
+            />
+          </div>
+          <div class="controlRow">
+            <label class="width30" for="requestAmount">Amount:</label>
+            <input
+              type="text"
+              class="width70"
+              id="requestAmount"
+            />
+          </div>
+          <div class="controlRow">
+            <label class="width30" for="requestDays">Expected Days:</label>
+            <input
+              type="text"
+              class="width70"
+              id="requestDays"
+            />
+          </div>                             
 
           <div class="button-row">
             <button class="red" id="requisitionBackBttn">Back</button>
@@ -275,10 +242,9 @@
           </div>
          
         </div>
-      </div>          
-      
-      
-      <div class="popup" id="viewRequisitionsData">
+      </div>
+
+      <div class="popup" id="actionOnRequisitionId">
           <div class="popup-content scrollable-content">
 
               <img
@@ -292,30 +258,53 @@
 
               <br />
 
-              <h3>Requisition List</h3>
+             <div class="requisition-summary">
 
-              <div class="table-container" id="requisitionTableContainer">
-                  <table id="requisitionTable">
-                      <thead>
-                          <tr>
-                              <th>Date</th>
-                              <th>Description</th>
-                              <th>Amount</th>
-                              <th>Expiry Date</th>
-                              <th>Category</th>
-                              <th>Sub Category</th>
-                              <th>Requestor</th>
-                              <th>Status</th>
-                              <th>Created Date</th>
-                          </tr>
-                      </thead>
+                  <div class="summary-item">
+                      <span class="summary-label">Date</span>
+                      <span class="summary-value" id="actionRequisitionDate"></span>
+                  </div>
 
-                      <tbody id="requisitionTableBody">
-                          <!-- Data will be populated here -->
-                      </tbody>
-                  </table>
+                  <div class="summary-item">
+                      <span class="summary-label">Amount</span>
+                      <span class="summary-value" id="actionRequisitionAmount"></span>
+                  </div>
+
+                  <div class="summary-item summary-description">
+                      <span class="summary-label">Description</span>
+                      <span class="summary-value" id="actionRequisitionDescription"></span>
+                  </div>
+
               </div>
 
+              <div id="requisitionActionFields"></div>
+
+              <div class="button-row">
+                  <button class="red" id="approvedBackBttn">Back</button>
+                  <button class="red" id="approvedResetDataBttn">Reset</button>
+                  <button class="green" id="rejectRequisitionBttn">Reject</button>
+                  <button class="green" id="approveRequisitionBttn">Approve</button>
+              </div>
+
+          </div>
+      </div>          
+            
+      <div class="popup" id="viewRequisitionsData">
+          <div class="popup-content scrollable-content">
+              <img  src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500" alt="NKD Logo"/>
+              <div>
+                  <p class="user-info-block"></p>
+              </div>
+              <br />
+              <h3>Requisition List</h3>
+              <div class="table-container" id="requisitionTableContainer">
+                  <table id="requisitionTable" style="display: none;">
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+              </div>              
               <div class="button-row">
                   <button class="red" id="requisitionListBackBttn">
                       Back
@@ -325,17 +314,17 @@
                       Raise New Requisition
                   </button>
               </div>
-
           </div>
       </div>
-
-
-      
+          
     </div>
 
     <script src="ScriptCommon.js"></script>
     <script src="ScriptConstants.js"></script>
+    <script src="ScriptTable.js"></script>
     <script src="ScriptUser.js"></script>
+    <script src="ScriptRequisitionAction.js"></script>     
+    
   </body>
 </html>
 
