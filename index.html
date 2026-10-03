@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="StylesCommon.css" />
     <link rel="stylesheet" href="StylesTable.css" />
+  
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -237,7 +238,7 @@
 
           <div class="button-row">
             <button class="red" id="requisitionBackBttn">Back</button>
-            <button class="red" id="resetRequisitionData">Reset</button>
+            <button class="white" id="resetRequisitionData">Reset</button>
             <button class="green" id="submitRequisition">Submit</button>
           </div>
          
@@ -281,9 +282,9 @@
 
               <div class="button-row">
                   <button class="red" id="approvedBackBttn">Back</button>
-                  <button class="red" id="approvedResetDataBttn">Reset</button>
-                  <button class="green" id="rejectRequisitionBttn">Reject</button>
-                  <button class="green" id="approveRequisitionBttn">Approve</button>
+                  <button class="white" id="approvedResetDataBttn">Reset</button>
+                  <button class="red" id="rejectRequisitionBttn">X Reject</button>
+                  <button class="green" id="approveRequisitionBttn">✓ Approve</button>
               </div>
 
           </div>
@@ -297,14 +298,27 @@
               </div>
               <br />
               <h3>Requisition List</h3>
-              <div class="table-container" id="requisitionTableContainer">
-                  <table id="requisitionTable" style="display: none;">
-                    <thead>
-                        <tr></tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-              </div>              
+              <div id="requisitionTableContainer">
+
+                  <div id="requisitionTableToolbar" class="table-toolbar">
+                      <input
+                          type="text"
+                          class="table-search"
+                          data-table-id="requisitionTable"
+                          placeholder="Search..."
+                      />
+                  </div>
+
+                  <div class="table-scroll">
+                      <table id="requisitionTable">
+                          <thead>
+                              <tr></tr>
+                          </thead>
+                          <tbody></tbody>
+                      </table>
+                  </div>
+
+              </div>            
               <div class="button-row">
                   <button class="red" id="requisitionListBackBttn">
                       Back

@@ -118,7 +118,9 @@ async function submitRequisition() {
     if (response?.status === "success" && response.data) {
       SHOW_SUCCESS_POPUP("Requisition data saved successfully.");
       resetRequisitionData();
-    } else {
+    }else if (response?.status === "validation_error") {
+      SHOW_ERROR_POPUP(response?.message || "Monthly limit exceeded.");
+    }else {
       SHOW_ERROR_POPUP(
         response?.message ||
           "Data could not be saved. Please contact the admin.",

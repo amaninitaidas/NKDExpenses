@@ -204,6 +204,12 @@ body {
   color: white;
 }
 
+.popup-content .white,
+.confirm-popup-content .white {
+  background-color: white;
+  color: var(--text-color);
+}
+
 .popup-content .orange {
   background: #d9822b !important;
   color: white !important;
