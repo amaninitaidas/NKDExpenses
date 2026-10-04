@@ -27,17 +27,38 @@ const requisitionColumns = [
 const tableConfigs = {
     requisition: {
         tableId: "requisitionTable",
-        actions: [
-            {
-                header: "Process",
-                type: "button",
-                text: "process",                
-                className: "table-process-btn processRequisitionPurchaserBttn"
-            }
-        ],
+        actions: [],
         columns: requisitionColumns        
     }
 };
+
+function getRequisitionActions(role) {
+
+    if (role === "user") {
+        return [
+            {
+                header: "Cancel",
+                type: "button",
+                text: "cancel",                
+                className: "table-process-btn cancelRequisitionBttn"
+            }
+        ];
+    }
+
+    return [
+        {
+            header: "Process",
+            type: "button",
+            text: "process",                
+            className: "table-process-btn processRequisitionPurchaserBttn"
+        }
+    ];
+}
+function getTableConfig() {    
+    var config = tableConfigs.requisition;
+    config.actions =getRequisitionActions(loginData.role);
+    return config;
+}
 
 function populateTable(config, data) {
 
@@ -127,9 +148,7 @@ function initializeTable(config) {
     table.find("thead th").show();
 }
 
-function getTableConfig() {    
-    return tableConfigs.requisition;
-}
+
 function renderTable(config) {
 
     const table = $(`#${config.tableId}`);

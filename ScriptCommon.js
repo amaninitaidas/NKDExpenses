@@ -25,7 +25,7 @@ function renderMenus(loginData) {
   if (loginData.role.includes("admin")) {
     admin_div.hidden = false;
   } else {
-    admin_div.hidden = true;
+    //admin_div.hidden = true;
   }
 }
 

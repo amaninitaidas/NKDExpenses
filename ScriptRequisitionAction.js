@@ -48,6 +48,16 @@ $(document).on("click", ".processRequisitionPurchaserBttn", function () {
     openRequisitionAction(requisitionId);
 });
 
+$(document).on("click", ".cancelRequisitionBttn", function () {    
+    const requisitionId = $(this).closest("tr").data("row-id"); 
+    SHOW_CONFIRMATION_POPUP(
+        "Are you sure you want to cancel this requisition?",
+        async () => {
+            await cancelRequisitionAction(requisitionId);
+        }
+    );
+});
+
 $(document).on("click", "#approvedBackBttn", function () {
     $("#actionOnRequisitionId").hide();
     $("#viewRequisitionsData").css("display", "flex");
@@ -168,6 +178,40 @@ function openRequisitionAction(requisitionId) {
 
     $("#actionOnRequisitionId").css("display", "flex");
 }
+
+async function cancelRequisitionAction(requisitionId) {
+
+    const requisition = requisitionData.find(
+        item => item.requisitionId === requisitionId
+    );
+    console.log(":::"+requisition)
+    if (!requisition) {
+        SHOW_ERROR_POPUP("Requisition data not found.");
+        return;
+    }
+
+     const request = {
+        apiType: "CANCEL_REQUISITION_BY_USER",
+        inputData: {
+            user: loginData.name,
+            requisitionId: requisitionId
+        }
+    };
+
+    try {
+        const response = await API_HANDLER_AXIOS(request);
+        if (response?.status === "success") {
+            SHOW_SUCCESS_POPUP("Requisition cancelled successfully.");
+            loadRequisitionList();
+        } else {
+            SHOW_ERROR_POPUP(response?.message || "Unable to cancel requisition.");
+        }
+    } catch (ex) {
+        console.error("cancelRequisition error:", ex);
+        SHOW_ERROR_POPUP("Error :- " + ex);
+    }
+}
+
   
 
 
