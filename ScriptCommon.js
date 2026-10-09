@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     INDEX_DB.dbName,
     INDEX_DB.storeName,
   );
-
+  //Control role type for testing
+  //loginData.role = 'Financer';
   if (loginData) {
     // Auto login
     renderMenus(loginData);
@@ -1006,7 +1007,11 @@ function daySuffix(day) {
 
 async function API_HANDLER_AXIOS(request) {
   try {
-    const url = APPLICATION_URL;
+    var url = APPLICATION_URL;
+    if(request.apiType === "CHECK_PASSWORD"){
+       url = APPLICATION_LOGIN_URL;
+    }
+   
     IsLoading(true); // Start loading
 
     const jsonReq = JSON.stringify(request);
@@ -2211,4 +2216,88 @@ function MERGE_SHEET_DATA(data, mergeConfig) {
   });
 
   return mergedData;
+}
+
+async function onLogoutClick() {
+  selectedFacilitator = {};
+  await DB_DELETE(INDEX_DB.storeKey, INDEX_DB.dbName, INDEX_DB.storeName);
+  document.getElementById("passworTxtBox").value = "";
+  document.getElementById("passworTxtBoxError").innerHTML = "";
+  SHOW_SPECIFIC_DIV("mainMenuPopup");
+}
+
+document.getElementById("passworTxtBox").addEventListener("input", function () {
+  let password_input = this.value;
+  let error_div = document.getElementById("passworTxtBoxError");
+  error_div.innerHTML = "";
+
+  let submitButton = document.getElementById("submitPassBtn");
+
+  submitButton.disabled = true;
+
+  if (password_input.length < 6) {
+    return;
+  }
+
+  submitButton.disabled = false;
+});
+
+
+async function submitPass() {
+  const now = new Date();
+
+  let password = GetControlValue("passworTxtBox");
+  let error_div = document.getElementById("passworTxtBoxError");
+  error_div.innerHTML = "";
+
+  if (password) {
+    password = password.trim();
+    inputPassword = password;
+    const response = await CALL_API("CHECK_PASSWORD", {
+      password: inputPassword,
+    });
+
+    if (response?.status == "success" && response.data) {
+      await DB_SET(
+        INDEX_DB.storeKey,
+        response.data,
+        INDEX_DB.dbName,
+        INDEX_DB.storeName,
+      );
+      
+      selectedFacilitator = response.data;
+
+      proceedStdLogin();
+    } else {
+      error_div.innerHTML = "Please enter correct password!!";
+      return;
+    }
+  } else {
+    error_div.innerHTML = "Please enter correct password!!";
+    return;
+  }
+}
+
+function proceedStdLogin() {
+  console.log(selectedFacilitator);
+  if (selectedFacilitator?.role) {
+    SHOW_SPECIFIC_DIV("userMenuPopup");
+    document.querySelectorAll(".user-info-block").forEach((element) => {
+      element.innerText = selectedFacilitator.name;
+    });
+
+    const popup = document.getElementById("userMenuPopup");
+    if (!popup) return;
+
+    let admin_div = document.getElementById("adminDropdown");
+    if (selectedFacilitator.role.includes("admin")) {
+      admin_div.hidden = false;
+    } else {
+      admin_div.hidden = true;
+    }
+  } else {
+    document.getElementById("passworTxtBox").value = "";
+    document.getElementById("passworTxtBoxError").innerHTML = "";
+    SHOW_SPECIFIC_DIV("mainMenuPopup");
+  }
 }

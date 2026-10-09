@@ -84,6 +84,7 @@ function closeRequisitionForm() {
 }
 
 async function submitRequisition() {
+
   const config = getRequisitionConfig();
   if (!validateRequisition()) {
     return;
@@ -96,38 +97,87 @@ async function submitRequisition() {
   }
 
   const fields = config.fields;
-  const inputData = {   
+
+  const category = $(fields.category).val().trim();
+  const subCategory = $(fields.subCategory).val().trim();
+  const amount = Number($(fields.amount).val());
+
+  const inputData = {
     description: $(fields.description).val().trim(),
     amount: $(fields.amount).val().trim(),
     days: $(fields.days).val(),
-    category:  $(fields.category).val() ,
-    subCategory:  $(fields.subCategory).val(),
+    category: category,
+    subCategory: subCategory,
     requestor: loginData.name,
-    status: "Submitted",
+    status: "",
     createDate: new Date(),
-  };   
+  };
+
+
+  if (!category || !subCategory) {
+
+    SHOW_CONFIRMATION_POPUP(
+      "Category / Sub Category is not defined.<br><br>" +
+      "This request will be considered as a Custom Request.<br><br>" +
+      "Do you want to continue?",
+      async () => {
+        inputData.status = "Custom_Request";
+        await submitRequisitionData(inputData);
+      }
+    );
+    return;
+  }
+
+  const availableLimit =
+    Number($("#availableLimit").text()) || 0;
+
+  if (amount > availableLimit) {
+
+    SHOW_CONFIRMATION_POPUP(
+      `Request amount (${amount}) is greater than the available limit (${availableLimit}).<br><br>
+       This request will be submitted as a Custom Request.<br><br>
+       Do you want to continue?`,
+
+      async () => {
+        inputData.status = "Custom_Request";
+        await submitRequisitionData(inputData);
+      }
+    );
+    return;
+  }
+
+  inputData.status = "Predefined_Request";
+  await submitRequisitionData(inputData);
+}
+
+async function submitRequisitionData(inputData) {
 
   const request = {
     apiType: "INSERT_REQUISITION_BY_USER",
-
     inputData: inputData,
   };
 
   try {
     const response = await API_HANDLER_AXIOS(request);
     if (response?.status === "success" && response.data) {
-      SHOW_SUCCESS_POPUP("Requisition data saved successfully.");
+      SHOW_SUCCESS_POPUP(
+        "Requisition data saved successfully."
+      );
       resetRequisitionData();
-    }else if (response?.status === "validation_error") {
-      SHOW_ERROR_POPUP(response?.message || "Monthly limit exceeded.");
-    }else {
+    } else if (response?.status === "validation_error") {
+      SHOW_ERROR_POPUP(
+        response?.message || "Monthly limit exceeded."
+      );
+    } else {
       SHOW_ERROR_POPUP(
         response?.message ||
-          "Data could not be saved. Please contact the admin.",
+        "Data could not be saved. Please contact the admin."
       );
     }
   } catch (ex) {
-    console.error(`submit${isCustom ? "Custom" : ""}Requisition error:`, ex);
+
+    console.error("submitRequisition error:", ex);
+
     SHOW_ERROR_POPUP("Error :- " + ex);
   }
 }
@@ -218,3 +268,37 @@ async function loadRequisitionList() {
     SHOW_ERROR_POPUP("Error loading requisition list.");
   }
 }
+
+$(document).on("change","#requestCategory, #requestSubCategory",
+  async function () {
+    const category = $("#requestCategory").val();
+    const subCategory = $("#requestSubCategory").val();
+  
+    $("#availableLimit").val("");
+    if (!category || !subCategory) {
+      return;
+    }
+
+    try {
+      const request = {
+        apiType: "GET_REQUISITIONS_LIMIT",
+        inputData: {
+          category: category,
+          subCategory: subCategory
+        }
+      };
+
+      const response = await API_HANDLER_AXIOS(request);
+      if (response?.status === "success") {
+          $("#availableLimit").text(response.limitAmount || 0);
+      } else {
+          $("#availableLimit").text(0);
+        SHOW_ERROR_POPUP(response?.message || "Unable to get available limit.");
+      }
+    } catch (ex) {
+      console.error("getAvailableLimit error:", ex);
+      $("#availableLimit").val("");
+      SHOW_ERROR_POPUP("Unable to get available limit.");
+    }
+  }
+);

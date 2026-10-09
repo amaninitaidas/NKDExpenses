@@ -2,6 +2,8 @@
 
 const APPLICATION_URL =
   "https://script.google.com/macros/s/AKfycbxDFuGQ7BSShASTU2ZmqbXvDvc0x9z3rXqT8LnywD_2korTvvuApAWZXUkgei9kyQzsIw/exec";
+const APPLICATION_LOGIN_URL =
+  "https://script.google.com/macros/s/AKfycbyz212MYParwmrybFSqYRn-mmKaULhpoU8Y1gJprlyZysTM0egAZhZ4vt22epWR934n/exec";
 const IMAGE_CONSTANT = {
   clickHere: "https://i.postimg.cc/g0LSdBpL/Click-Here.jpg",
   addUserIcon: "https://imghost.net/ib/E5PegaLvH4xfUED_1729512954.png",

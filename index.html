@@ -113,7 +113,7 @@
         </div>
       </div>
 
-      <div class="popup" style="display: flex" id="mainMenuPopup">
+       <div class="popup" style="display: flex" id="mainMenuPopup">
         <div class="popup-content scrollable-content">
           <img
             src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
@@ -125,7 +125,7 @@
             id="passworTxtBox"
             placeholder="Password"
             required
-          /
+          />
           <div class="error" id="passworTxtBoxError"></div>
           <div class="button-row">
             <button
@@ -205,11 +205,15 @@
           <div class="controlRow">
               <label class="width30" for="class">Sub Category:</label>
               <select class="width70" id="requestSubCategory">
-                <option value="">-- Select Student --</option>
+                <option value="">-- Select SubCategory --</option>
                 <option value="Printing">Printing</option>
                 <option value="Stationary">Stationary</option>
                 <option value="Other">Other</option>
               </select>
+          </div>
+          <div class="controlRow">
+            <label class="width30" for="availableLimit">Available Limit:</label>
+            <span class="width70" id="availableLimit"></span>
           </div>
           <div class="controlRow">
             <label class="width30" for="requestDescription">Description:</label>
@@ -218,7 +222,7 @@
               class="width70"
               id="requestDescription"
             />
-          </div>
+          </div>          
           <div class="controlRow">
             <label class="width30" for="requestAmount">Amount:</label>
             <input
@@ -283,8 +287,8 @@
               <div class="button-row">
                   <button class="red" id="approvedBackBttn">Back</button>
                   <button class="white" id="approvedResetDataBttn">Reset</button>
-                  <button class="red" id="rejectRequisitionBttn">X Reject</button>
-                  <button class="green" id="approveRequisitionBttn">✓ Approve</button>
+                  <button class="red" id="rejectRequisitionBttn">X Hold</button>
+                  <button class="green" id="approveRequisitionBttn">✓ Proceed</button>
               </div>
 
           </div>

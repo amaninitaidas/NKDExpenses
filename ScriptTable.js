@@ -34,7 +34,7 @@ const tableConfigs = {
 
 function getRequisitionActions(role) {
 
-    if (role === "user") {
+    if (String(role || "").trim().toLowerCase() === "user") {
         return [
             {
                 header: "Cancel",

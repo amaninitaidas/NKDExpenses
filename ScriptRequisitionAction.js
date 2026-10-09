@@ -68,18 +68,17 @@ $(document).on("click", "#approvedResetDataBttn", function () {
 });
 
 $(document).on("click", "#rejectRequisitionBttn", function () {
-    updateRequisition("Rejected");
+    updateRequisition("Hold");
 });
 
 $(document).on("click", "#approveRequisitionBttn", function () {
-    updateRequisition("Approved");
+    updateRequisition("Processed");
 });
 
 
 function renderRequisitionActionFields(requisition) {
 
-    //const role = loginData.role;
-    const role = "Purchaser";
+    const role = loginData.role;    
     console.log("Role:", role);
     const container = $("#requisitionActionFields");
     container.empty();
@@ -217,8 +216,7 @@ async function cancelRequisitionAction(requisitionId) {
 
 
 function resetRequisitionActionData() {
-    //const role = loginData.role;
-    const role = "Purchaser";
+    const role = loginData.role;   
     const config = requisitionActionConfigs[role];
     if (!config || !config.fields?.length) {
         return;
@@ -230,7 +228,7 @@ function resetRequisitionActionData() {
 
 async function updateRequisition(action) {
 
-    const role = "Purchaser";//loginData.role;
+    const role = loginData.role;
     const requisitionId = $("#actionOnRequisitionId").attr("data-requisition-id");
     if (!requisitionId) {
         SHOW_ERROR_POPUP("Requisition not selected.");
@@ -307,9 +305,9 @@ async function updateRequisition(action) {
         const response = await API_HANDLER_AXIOS(request);
         if (response?.status === "success" && response.data) {
             SHOW_SUCCESS_POPUP(
-                action === "Approved"
-                    ? "Requisition approved successfully."
-                    : "Requisition rejected successfully."
+                action === "Processed"
+                    ? "Requisition Processed successfully."
+                    : "Requisition Hold successfully."
             );
             resetRequisitionActionData();
             $("#actionOnRequisitionId").hide();
