@@ -3,7 +3,24 @@ const requisitionActionConfigs = {
     Admin: {
         fields: [
             { id: "approvedAmount", label: "Approved Amount", type: "text" },
-            { id: "approvedComment", label: "Comment", type: "text" }
+            { id: "approvedComment", label: "Comment", type: "text" },
+            {
+                id: "financeCategory",label: "Category",type: "select",valueKey: "requestCategory",
+                options: [
+                    { value: "", text: "-- Select Category --" },
+                    { value: "Congregation", text: "Congregation" },
+                    { value: "Gurukul", text: "Gurukul" }
+                ]
+            },
+            {
+                id: "financeSubCategory",label: "Sub Category",type: "select",valueKey: "requestSubCategory",
+                options: [
+                    { value: "", text: "-- Select Sub Category --" },
+                    { value: "Printing", text: "Printing" },
+                    { value: "Stationary", text: "Stationary" },
+                    { value: "Other", text: "Other" }
+                ]
+            }
         ]
     },
 
@@ -227,7 +244,7 @@ function resetRequisitionActionData() {
 }
 
 async function updateRequisition(action) {
-
+    debugger
     const role = loginData.role;
     const requisitionId = $("#actionOnRequisitionId").attr("data-requisition-id");
     if (!requisitionId) {
@@ -248,9 +265,10 @@ async function updateRequisition(action) {
     }
     
     if (!validateRequisitionAction(role)) {
+        console.log("Failed ::"+ requisitionId);
         return;
     }
-
+    console.log("Validation Passed "+ requisitionId);
     const onlineRes = await IS_ONLINE();
 
     if (!onlineRes) {
@@ -327,7 +345,7 @@ async function updateRequisition(action) {
 
 
 function validateRequisitionAction(role) {
-
+    debugger;
     let amountSelector = "";
     let commentSelector = "";
     if (role === "Admin" || role === "Purchaser") {

@@ -6,9 +6,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     INDEX_DB.dbName,
     INDEX_DB.storeName,
   );
-  //Control role type for testing
-  //loginData.role = 'Financer';
   if (loginData) {
+    loginData.role = "User";
     // Auto login
     renderMenus(loginData);
     SHOW_SPECIFIC_DIV("userMenuPopup");
@@ -142,9 +141,9 @@ function ClearDivValue(id) {
 
 function IsLoading(status) {
   if (status) {
-    document.getElementById("loadingSpinner").style.display = "flex";
+    $("#loadingSpinner").addClass("active");
   } else {
-    document.getElementById("loadingSpinner").style.display = "none";
+    $("#loadingSpinner").removeClass("active");
   }
 }
 
@@ -2256,8 +2255,9 @@ async function submitPass() {
     const response = await CALL_API("CHECK_PASSWORD", {
       password: inputPassword,
     });
-
+    
     if (response?.status == "success" && response.data) {
+
       await DB_SET(
         INDEX_DB.storeKey,
         response.data,
@@ -2265,9 +2265,8 @@ async function submitPass() {
         INDEX_DB.storeName,
       );
       
-      selectedFacilitator = response.data;
-
-      proceedStdLogin();
+      selectedFacilitator = response.data;      
+      proceedStdLogin(); 
     } else {
       error_div.innerHTML = "Please enter correct password!!";
       return;
@@ -2289,15 +2288,11 @@ function proceedStdLogin() {
     const popup = document.getElementById("userMenuPopup");
     if (!popup) return;
 
-    let admin_div = document.getElementById("adminDropdown");
-    if (selectedFacilitator.role.includes("admin")) {
-      admin_div.hidden = false;
-    } else {
-      admin_div.hidden = true;
-    }
+    
   } else {
     document.getElementById("passworTxtBox").value = "";
     document.getElementById("passworTxtBoxError").innerHTML = "";
     SHOW_SPECIFIC_DIV("mainMenuPopup");
   }
+  
 }
