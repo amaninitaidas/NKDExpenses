@@ -1,312 +1,98 @@
-/* Cleaned StylesCommon.css for NKD Expenses App
-   Based on selectors present in index(4).html.
-   Keep the inline <style> block in index.html for the app layout and dashboard.
-*/
+/* ==========================================================================
+   NKD APP - STYLESCOMMON.CSS
+   Forms, Buttons, and Alerts based on NKD Sadhna
+========================================================================== */
 
-:root {
-  --primary-color: #0f365b;
-  --secondary-color: #3f77bb;
-  --success-color: #76b843;
-  --accent-color: #d5952a;
-  --danger-color: #ed324d;
-  --background-color: #b2d3f5;
-  --white-color: #ffffff;
-  --text-color: #18324a;
-  --border-color: #d8e2ec;
+/* ---------- Buttons ---------- */
+button {
+  width: 100%; min-height: 48px; margin-top: 10px; padding: 12px 18px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: inherit; font-size: 1rem; font-weight: 600; line-height: 1.2;
+  color: var(--ink-900); background: var(--surface-2); border: 1px solid var(--line-strong);
+  border-radius: var(--radius); cursor: pointer; touch-action: manipulation;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
 }
 
-[hidden] {
-  display: none !important;
+button:hover { filter: brightness(0.96); }
+button:active { transform: scale(0.98); }
+button:focus-visible { outline: none; box-shadow: var(--ring); }
+button:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; transform: none; filter: none; }
+
+button.green, button.submit-button {
+  color: #fff; background: linear-gradient(180deg, var(--brand-600) 0%, var(--brand-700) 100%);
+  border-color: var(--brand-700); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 18px -8px rgba(47, 90, 145, 0.7);
 }
 
-/* Loading overlay */
-/* Show spinner when an action is running */
-#loadingSpinner {
-    display: none;
-    position: fixed;
-    inset: 0;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.65);
-    z-index: 99999;
+button.red, button.cancel-button { color: var(--danger-700); background: var(--danger-50); border-color: var(--danger-100); }
+button.blue {
+  color: #fff; background: linear-gradient(180deg, #3ea2b5 0%, var(--info-600) 100%);
+  border-color: var(--info-600); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 8px 18px -8px rgba(37, 99, 235, 0.7);
 }
 
-/* Visible only when active */
-#loadingSpinner.active {
-    display: flex;
-}
+button:is(.green, .submit-button, .blue):not(:disabled):hover { filter: brightness(1.05); transform: translateY(-1px); }
 
-/* Spinner animation */
-#loadingSpinner .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #ddd;
-    border-top-color: #2563eb;
-    border-radius: 50%;
-    animation: spinnerRotate 0.8s linear infinite;
-}
+.button-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.button-row > button { flex: 1; margin-top: 0; }
 
-@keyframes spinnerRotate {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Informational popups */
+/* Background / Overlay Popups */
 .infoPopup {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 23, 42, 0.45);
-  z-index: 1001;
-  padding: 1rem;
+  position: fixed; inset: 0; display: none; align-items: center; justify-content: center; padding: 24px;
+  background: rgba(15, 23, 42, 0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); z-index: 2000;
 }
 
 .infoPopup-content {
-  width: min(100%, 30rem);
-  padding: 1.25rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  background: #fff;
-  color: #0f172a;
-  text-align: center;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.22);
+  width: 100%; max-width: 420px; max-height: calc(100vh - 48px); margin: auto; padding: 28px;
+  overflow-y: auto; text-align: center; background: var(--surface);
+  border: 0; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);
+  animation: modalIn 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .infoPopup-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 15px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%;
+  background-repeat: no-repeat; background-position: center; background-size: 32px;
+}
+.infoPopup-icon.success { background-color: var(--brand-100); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23047857' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E"); }
+.infoPopup-icon.error { background-color: var(--danger-100); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E"); }
+.infoPopup-icon.confirmation { background-color: var(--saffron-100); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b45309' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E"); }
+.infoPopup-icon.info { background-color: var(--info-100); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232b8a9c' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E"); }
+
+.infoPopup-heading { margin-bottom: 14px; font-size: 1.25rem; text-align: center; }
+.infoPopup-heading.success { color: var(--brand-700); }
+.infoPopup-heading.error { color: var(--danger-600); }
+
+.infoPopup-message { margin-bottom: 20px; font-size: 16px; font-weight: 500; line-height: 1.55; color: var(--ink-700); white-space: pre-line; overflow-wrap: anywhere; }
+
+#errorPopup button.red { color: #fff; background: var(--danger-600); border-color: var(--danger-600); }
+
+/* Loading Spinner */
+#loadingSpinner { display: none; position: fixed; inset: 0; z-index: 10000; justify-content: center; align-items: center; background: rgba(15, 23, 42, 0.35); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+#loadingSpinner.active { display: flex; }
+#loadingSpinner .spinner { width: 40px; height: 40px; border: 4px solid var(--line-strong); border-top-color: var(--brand-600); border-radius: 50%; animation: spinnerRotate 0.8s linear infinite; }
+@keyframes spinnerRotate { to { transform: rotate(360deg); } }
+
+/* ---------- Form Controls ---------- */
+label { display: block; margin-top: 12px; font-size: 14px; font-weight: 600; text-align: left; color: var(--ink-700); }
+label.required::after { content: " *"; color: var(--danger-600); }
+
+input[type="text"], input[type="password"], textarea, select {
+  display: block; width: 100%; margin: 6px 0 12px; padding: 12px 14px; font: inherit; font-size: 16px;
+  color: var(--ink-900); background-color: var(--surface); border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius); outline: none; transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border-color: var(--brand-600); box-shadow: var(--ring); }
+::placeholder { color: var(--ink-400); }
+textarea { min-height: 48px; line-height: 1.5; resize: vertical; }
+
+select {
+  padding-right: 42px; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; background-size: 18px;
 }
 
-.infoPopup-icon.success {
-  background-image: url("https://i.postimg.cc/jSZsPbth/checked-icon.png");
-}
+.error { color: var(--danger-600); font-size: 0.875rem; margin-top: 4px; }
+.scrollable-content { flex-grow: 1; overflow-y: auto; max-height: 100%; }
 
-.infoPopup-icon.error {
-  background-image: url("https://i.postimg.cc/TP1Tc4Pv/cancel-icon.png");
-}
-
-.infoPopup-icon.confirmation {
-  background-image: url("https://i.ibb.co/BsvQsfb/Confirmation-icon.png");
-}
-
-.infoPopup-icon.info {
-  background-image: url("https://i.postimg.cc/JnWxY3pS/Information-Icon.png");
-}
-
-.infoPopup-heading.success { color: #45a049; }
-.infoPopup-heading.error { color: #ff3636; }
-
-.infoPopup-message {
-  margin-bottom: 1.25rem;
-  color: #555;
-  font-size: 1.1rem;
-  font-weight: 600;
-  white-space: pre-line;
-}
-
-.infoPopup-content .green {
-  background: #45a049;
-  color: #fff;
-}
-
-.infoPopup-content .red {
-  background: #ff3636;
-  color: #fff;
-}
-
-/* Buttons used by the existing popups/forms.
-   Layout and spacing are refined by the inline styles in index.html. */
-button {
-  font: inherit;
-  cursor: pointer;
-}
-
-.popup-content button,
-.infoPopup-content button {
-  border: 0;
-  border-radius: 0.5rem;
-  padding: 0.65rem 0.75rem;
-  font-size: 1rem;
-}
-
-.green {
-  background-color: var(--success-color);
-  color: #fff;
-}
-
-.red {
-  background-color: var(--danger-color);
-  color: #fff;
-}
-
-.white {
-  background-color: #fff;
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Existing form layout */
-.error {
-  color: var(--danger-color);
-  font-size: 0.875rem;
-}
-
-.heading {
-  color: var(--text-color);
-  font-weight: 700;
-  margin: 0.5rem 0 0.85rem;
-}
-
-.user-info-block { display: flex; align-items: center; gap: 10px; padding: 12px 16px; margin: 12px 0; background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #2563eb; border-radius: 8px; box-sizing: border-box; color: #1e40af; }
-.user-info-block p { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; } .user-info-block::before { content: ""; width: 8px; height: 8px; flex-shrink: 0; background: #2563eb; border-radius: 50%; }
-
-.controlRow {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin: 0.7rem 0;
-}
-
-.controlRow label {
-  color: #475569;
-}
-
-.controlRow input,
-.controlRow select,
-.controlRow textarea {
-  min-width: 0;
-  max-width: 100%;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.7rem;
-  padding: 0.6rem;
-}
-
-.width30 {
-  width: 30%;
-}
-
-.width70 {
-  width: 70%;
-}
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1rem;
-}
-
-.button-row button {
-  flex: 1 1 7rem;
-  width: auto;
-  margin-top: 0;
-}
-
-/* Popup content scrolling */
-.scrollable-content {
-  flex-grow: 1;
-  overflow-y: auto;
-  max-height: 100%;
-  margin-bottom: 0.625rem;
-}
-
-.scrollable-content-table {
-  flex-grow: 1;
-  overflow: auto;
-  max-height: 50vh;
-  margin-bottom: 0.625rem;
-  padding-right: 0.625rem;
-}
-
-/* Confirmation and requisition tables.
-   The table-specific layout in index.html targets #requisitionTable. */
-.collection-table-container {
-  max-width: 100%;
-  overflow: auto;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-.table-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-th,
-td {
-  padding: 0.5rem;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-td {
-  white-space: pre-line;
-}
-
-/* Requisition action summary */
-.requisition-summary {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.65rem;
-  margin: 0.75rem 0 1rem;
-}
-
-.summary-item {
-  min-width: 0;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: 0.65rem;
-  background: #f8fafc;
-}
-
-.summary-description {
-  grid-column: 1 / -1;
-}
-
-.summary-label {
-  display: block;
-  margin-bottom: 0.25rem;
-  color: #64748b;
-  font-size: 0.8rem;
-}
-
-.summary-value {
-  display: block;
-  overflow-wrap: anywhere;
-  color: var(--text-color);
-  font-weight: 600;
-}
-
-@media (max-width: 480px) {
-  .controlRow {
-    display: block;
-  }
-
-  .controlRow .width30,
-  .controlRow .width70 {
-    display: block;
-    width: 100%;
-  }
-
-  .requisition-summary {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Grid Layout Rows */
+.controlRow { display: flex; flex-direction: column; align-items: stretch; gap: 4px; margin: 0 0 12px; }
+.controlRow label { margin: 0; }
+.controlRow input, .controlRow select, .controlRow textarea { margin: 0; }

@@ -1,10 +1,9 @@
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f2f2f7" />
+    <meta name="theme-color" content="#f3f5fa" />
     <meta name="description" content="NKD Expenses and Requisition Management App" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
@@ -38,8 +37,7 @@
           <h2 class="infoPopup-heading success">Success!</h2>
           <div id="successMessage" class="infoPopup-message"></div>
 
-          <button type="button" class="ios-btn ios-btn--success"
-                  id="successOkButton">
+          <button type="button" class="green" id="successOkButton">
             OKAY
           </button>
         </div>
@@ -52,8 +50,7 @@
           <h2 class="infoPopup-heading error">Error!</h2>
           <div id="errorMessage" class="infoPopup-message"></div>
 
-          <button type="button" class="ios-btn ios-btn--danger"
-                  onclick="CLOSE_INFO_POPUP('errorPopup')">
+          <button type="button" class="red" onclick="CLOSE_INFO_POPUP('errorPopup')">
             TRY AGAIN
           </button>
         </div>
@@ -66,8 +63,7 @@
           <h2 class="infoPopup-heading info">Information</h2>
           <div id="infoMessage" class="infoPopup-message"></div>
 
-          <button type="button" class="ios-btn ios-btn--primary"
-                  onclick="CLOSE_INFO_POPUP('infoPopup')">
+          <button type="button" class="green" onclick="CLOSE_INFO_POPUP('infoPopup')">
             OKAY
           </button>
         </div>
@@ -80,13 +76,10 @@
           <div class="infoPopup-message" id="confirmationMessage"></div>
 
           <div class="button-row">
-            <button type="button" class="ios-btn ios-btn--outline"
-                    id="confirmationNoButton">
+            <button type="button" class="red" id="confirmationNoButton">
               NO
             </button>
-
-            <button type="button" class="ios-btn ios-btn--primary"
-                    id="confirmationYesButton">
+            <button type="button" class="green" id="confirmationYesButton">
               YES
             </button>
           </div>
@@ -100,9 +93,7 @@
 
           <div id="confirmationGridStatusText" class="heading"></div>
 
-          <div id="confirmationGridContainer"
-               class="collection-table-container scrollable-content-table confirmation-grid-container">
-
+          <div id="confirmationGridContainer" class="collection-table-container scrollable-content-table confirmation-grid-container">
             <table id="confirmationGridTable">
               <thead id="confirmationGridTHead" class="table-header">
               </thead>
@@ -112,13 +103,10 @@
           </div>
 
           <div class="button-row">
-            <button type="button" class="ios-btn ios-btn--outline"
-                    id="confirmationGridNoButton">
+            <button type="button" class="red" id="confirmationGridNoButton">
               NO
             </button>
-
-            <button type="button" class="ios-btn ios-btn--primary"
-                    id="confirmationGridYesButton">
+            <button type="button" class="green" id="confirmationGridYesButton">
               YES
             </button>
           </div>
@@ -127,41 +115,21 @@
 
       <!-- Verification Popup -->
       <div class="popup" id="verificationGridPopup">
-        <div class="popup-content scrollable-content"
-             id="verificationGridSubPopup">
+        <div class="popup-content scrollable-content" id="verificationGridSubPopup">
 
-          <img
-            src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
-            alt="NKD Logo"
-          />
+          <img src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500" alt="NKD Logo" />
 
-          <div id="verifyDetailsHeading_div"
-               class="user-info-block is-hidden">
+          <div id="verifyDetailsHeading_div" class="user-info-block is-hidden">
             <p id="verifyDetailsHeading_lbl"></p>
           </div>
 
-          <div class="heading" id="gridHeading">
-            Verify Details
-          </div>
+          <h2 id="gridHeading">Verify Details</h2>
 
           <div class="button-row">
-            <button type="button" class="ios-btn ios-btn--outline"
-                    id="verificationBackButton">
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
+            <button type="button" class="red" id="verificationBackButton">
               Back
             </button>
-
-            <button type="button" class="ios-btn ios-btn--primary"
-                    id="verificationSubmitBtn">
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <path d="m5 12 4 4L19 6"/>
-              </svg>
+            <button type="button" class="green" id="verificationSubmitBtn">
               Submit
             </button>
           </div>
@@ -172,72 +140,35 @@
       <div class="popup is-visible" id="mainMenuPopup">
         <div class="popup-content scrollable-content">
 
-          <img
-            src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
-            alt="NKD Logo"
-          />
+          <img src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500" alt="NKD Logo" />
 
           <h2>NKD Expense App</h2>
 
-          <input
-            type="password"
-            id="passworTxtBox"
-            placeholder="Enter password"
-            autocomplete="current-password"
-            required
-          />
-
+          <input type="password" id="passworTxtBox" placeholder="Enter password" autocomplete="current-password" required />
           <div class="error" id="passworTxtBoxError"></div>
 
           <div class="button-row">
-            <button
-              type="button"
-              class="ios-btn ios-btn--outline"
-              onclick="
-                document.getElementById('passworTxtBox').value = '';
-                document.getElementById('passworTxtBoxError').innerHTML = '';
-              "
-            >
+            <button type="button" class="red" onclick="document.getElementById('passworTxtBox').value = ''; document.getElementById('passworTxtBoxError').innerHTML = '';">
               Clear
             </button>
-
-            <button
-              type="button"
-              class="ios-btn ios-btn--primary"
-              id="submitPassBtn"
-              onclick="submitPass()"
-              disabled
-            >
+            <button type="button" class="green" id="submitPassBtn" onclick="submitPass()" disabled>
               Login
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6"/>
-              </svg>
             </button>
           </div>
         </div>
       </div>
 
       <!-- User Dashboard -->
-      <div class="popup" id="userMenuPopup"
-           aria-labelledby="dashboardTitle">
-
+      <div class="popup" id="userMenuPopup" aria-labelledby="dashboardTitle">
         <div class="popup-content scrollable-content">
 
-          <img
-            src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
-            alt="NKD Logo"
-          />
+          <img src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500" alt="NKD Logo" />
 
           <div class="dashboard-heading">
             <div class="dashboard-heading-copy">
               <h2 id="dashboardTitle">NKD Expense Dashboard</h2>
-              <p id="dashboardDescription">
-                Choose an action to continue.
-              </p>
+              <p id="dashboardDescription">Choose an action to continue.</p>
             </div>
-
             <span id="dashboardRoleBadge" aria-live="polite"></span>
           </div>
 
@@ -245,58 +176,31 @@
             <div class="accordion-content show">
 
               <!-- Create Requisition -->
-              <button
-                type="button"
-                class="user-menu-item primary-action ios-btn ios-btn--primary"
-                id="addRequisitionBttn"
-                hidden
-              >
+              <button type="button" class="user-menu-item primary-action" id="addRequisitionBttn" hidden>
                 <span class="action-icon" aria-hidden="true">
-                  <svg class="ios-icon" viewBox="0 0 24 24"
-                       fill="none" stroke="currentColor"
-                       stroke-width="2" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width: 24px; height: 24px;">
                     <path d="M12 5v14M5 12h14"/>
                   </svg>
                 </span>
-
                 <span class="action-copy">
-                  <span class="action-title">
-                    Raise New Requisition
-                  </span>
-                  <span class="action-subtitle">
-                    Submit a new expense request
-                  </span>
+                  <span class="action-title">New Request</span>
+                  <span class="action-subtitle">Submit a new expense request</span>
                 </span>
-
                 <span class="action-arrow" aria-hidden="true">›</span>
               </button>
 
               <!-- View Requisitions -->
-              <button
-                type="button"
-                class="user-menu-item ios-btn ios-btn--secondary"
-                id="viewRequisitionBttn"
-                hidden
-              >
+              <button type="button" class="user-menu-item" id="viewRequisitionBttn" hidden>
                 <span class="action-icon" aria-hidden="true">
-                  <svg class="ios-icon" viewBox="0 0 24 24"
-                       fill="none" stroke="currentColor"
-                       stroke-width="2" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width: 24px; height: 24px;">
                     <rect x="4" y="3" width="16" height="18" rx="2"/>
                     <path d="M8 8h8M8 12h8M8 16h5"/>
                   </svg>
                 </span>
-
                 <span class="action-copy">
-                  <span class="action-title" id="viewRequisitionTitle">
-                    View Requisitions
-                  </span>
-                  <span class="action-subtitle"
-                        id="viewRequisitionSubtitle">
-                    View requisitions available to your role
-                  </span>
+                  <span class="action-title" id="viewRequisitionTitle">View Requisitions</span>
+                  <span class="action-subtitle" id="viewRequisitionSubtitle">View requisitions available to your role</span>
                 </span>
-
                 <span class="action-arrow" aria-hidden="true">›</span>
               </button>
 
@@ -304,15 +208,7 @@
           </div>
 
           <div class="dashboard-footer">
-            <button type="button"
-                    class="ios-btn ios-btn--outline ios-btn--full"
-                    onclick="onLogoutClick()">
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <path d="M10 17l5-5-5-5M15 12H3"/>
-                <path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"/>
-              </svg>
+            <button type="button" class="red" onclick="onLogoutClick()">
               Logout
             </button>
           </div>
@@ -323,23 +219,16 @@
       <div class="popup" id="raiseNewRequisitionId">
         <div class="popup-content scrollable-content">
 
-          <img
-            src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
-            alt="NKD Logo"
-          />
+          <img src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500" alt="NKD Logo" />
 
           <div class="user-info-block">
             <p></p>
           </div>
 
           <div class="form-section">
-
             <div class="controlRow">
-              <label class="width30" for="requestCategory">
-                Category:
-              </label>
-
-              <select class="width70" id="requestCategory">
+              <label class="required" for="requestCategory">Category:</label>
+              <select id="requestCategory">
                 <option value="">-- Select Category --</option>
                 <option value="Congregation">Congregation</option>
                 <option value="Gurukul">Gurukul</option>
@@ -347,11 +236,8 @@
             </div>
 
             <div class="controlRow">
-              <label class="width30" for="requestSubCategory">
-                Sub Category:
-              </label>
-
-              <select class="width70" id="requestSubCategory">
+              <label class="required" for="requestSubCategory">Sub Category:</label>
+              <select id="requestSubCategory">
                 <option value="">-- Select SubCategory --</option>
                 <option value="Printing">Printing</option>
                 <option value="Stationary">Stationary</option>
@@ -362,75 +248,35 @@
             <!-- Available Limit -->
             <div class="available-limit-card">
               <span class="available-limit-label">
-                <svg class="ios-icon" viewBox="0 0 24 24"
-                     fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round"
-                     stroke-linejoin="round" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 18px; height: 18px; color: var(--info-600);">
                   <rect x="3" y="5" width="18" height="14" rx="3"/>
                   <path d="M3 10h18M7 15h3"/>
                 </svg>
                 Available Limit
               </span>
-
-              <span id="availableLimit"
-                    class="available-limit-amount">
-                ₹ 0.00
-              </span>
+              <span id="availableLimit" class="available-limit-amount">₹ 0.00</span>
             </div>
 
             <div class="controlRow">
-              <label class="width30" for="requestDescription">
-                Description:
-              </label>
-
-              <input type="text" class="width70"
-                     id="requestDescription" />
+              <label class="required" for="requestDescription">Description:</label>
+              <input type="text" id="requestDescription" placeholder="Enter Description" />
             </div>
 
             <div class="controlRow">
-              <label class="width30" for="requestAmount">
-                Amount:
-              </label>
-
-              <input type="text" class="width70"
-                     id="requestAmount" />
+              <label class="required" for="requestAmount">Amount:</label>
+              <input type="text" id="requestAmount" placeholder="Enter Amount" />
             </div>
 
             <div class="controlRow">
-              <label class="width30" for="requestDays">
-                Expected Days:
-              </label>
-
-              <input type="text" class="width70"
-                     id="requestDays" />
+              <label class="required" for="requestDays">Expected Days:</label>
+              <input type="text" id="requestDays" placeholder="Enter Expected Days" />
             </div>
-
           </div>
 
           <div class="button-row">
-            <button type="button"
-                    class="ios-btn ios-btn--outline"
-                    id="requisitionBackBttn">
-              Back
-            </button>
-
-            <button type="button"
-                    class="ios-btn ios-btn--secondary"
-                    id="resetRequisitionData">
-              Reset
-            </button>
-
-            <button type="button"
-                    class="ios-btn ios-btn--primary"
-                    id="submitRequisition">
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <path d="M22 2 11 13"/>
-                <path d="m22 2-7 20-4-9-9-4Z"/>
-              </svg>
-              Submit
-            </button>
+            <button type="button" class="red" id="requisitionBackBttn">Back</button>
+            <button type="button" class="blue" id="resetRequisitionData">Reset</button>
+            <button type="button" class="green" id="submitRequisition">Submit</button>
           </div>
 
         </div>
@@ -440,33 +286,51 @@
       <div class="popup" id="actionOnRequisitionId">
         <div class="popup-content scrollable-content">
 
-          <img
-            src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
-            alt="NKD Logo"
-          />
+          <img src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500" alt="NKD Logo" />
 
           <div class="user-info-block">
             <p></p>
           </div>
 
+          <!-- New Sadhna-styled Summary Card -->
           <div class="requisition-summary">
-
+            
             <div class="summary-item">
-              <span class="summary-label">Date</span>
-              <span class="summary-value"
-                    id="actionRequisitionDate"></span>
+              <span class="summary-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Date
+              </span>
+              <span class="summary-value" id="actionRequisitionDate"></span>
             </div>
 
-            <div class="summary-item">
-              <span class="summary-label">Amount</span>
-              <span class="summary-value"
-                    id="actionRequisitionAmount"></span>
+            <div class="summary-item amount-highlight">
+              <span class="summary-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="12" y1="1" x2="12" y2="23"/>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                Amount
+              </span>
+              <span class="summary-value" id="actionRequisitionAmount"></span>
             </div>
 
             <div class="summary-item summary-description">
-              <span class="summary-label">Description</span>
-              <span class="summary-value"
-                    id="actionRequisitionDescription"></span>
+              <span class="summary-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                Description
+              </span>
+              <span class="summary-value" id="actionRequisitionDescription"></span>
             </div>
 
           </div>
@@ -474,40 +338,10 @@
           <div id="requisitionActionFields"></div>
 
           <div class="button-row">
-            <button type="button"
-                    class="ios-btn ios-btn--outline"
-                    id="approvedBackBttn">
-              Back
-            </button>
-
-            <button type="button"
-                    class="ios-btn ios-btn--secondary"
-                    id="approvedResetDataBttn">
-              Reset
-            </button>
-
-            <button type="button"
-                    class="ios-btn ios-btn--danger"
-                    id="rejectRequisitionBttn">
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="m9 9 6 6m0-6-6 6"/>
-              </svg>
-              Hold
-            </button>
-
-            <button type="button"
-                    class="ios-btn ios-btn--success"
-                    id="approveRequisitionBttn">
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <path d="m5 12 4 4L19 6"/>
-              </svg>
-              Proceed
-            </button>
+            <button type="button" class="red" id="approvedBackBttn">Back</button>
+            <button type="button" class="blue" id="approvedResetDataBttn">Reset</button>
+            <button type="button" class="red" id="rejectRequisitionBttn">Hold</button>
+            <button type="button" class="green" id="approveRequisitionBttn">Proceed</button>
           </div>
 
         </div>
@@ -517,27 +351,17 @@
       <div class="popup" id="viewRequisitionsData">
         <div class="popup-content scrollable-content">
 
-          <img
-            src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500"
-            alt="NKD Logo"
-          />
+          <img src="https://drive.google.com/thumbnail?id=1aYobBIvFM5yJUgqLktnHjzwxuFX0OfGn&sz=w500" alt="NKD Logo" />
 
           <div class="user-info-block">
             <p></p>
           </div>
 
-          <h3>Requisition List</h3>
+          <h2>Requisition List</h2>
 
           <div id="requisitionTableContainer">
-
             <div id="requisitionTableToolbar" class="table-toolbar">
-              <input
-                type="text"
-                class="table-search"
-                data-table-id="requisitionTable"
-                placeholder="Search requisitions..."
-                aria-label="Search requisitions"
-              />
+              <input type="text" class="table-search" data-table-id="requisitionTable" placeholder="Search requisitions..." aria-label="Search requisitions" />
             </div>
 
             <div class="table-scroll">
@@ -548,26 +372,11 @@
                 <tbody></tbody>
               </table>
             </div>
-
           </div>
 
           <div class="button-row">
-            <button type="button"
-                    class="ios-btn ios-btn--outline"
-                    id="requisitionListBackBttn">
-              Back
-            </button>
-
-            <button type="button"
-                    class="ios-btn ios-btn--primary"
-                    id="addRequisitionFromViewBttn">
-              <svg class="ios-icon" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor"
-                   stroke-width="2" aria-hidden="true">
-                <path d="M12 5v14M5 12h14"/>
-              </svg>
-              Raise New Requisition
-            </button>
+            <button type="button" class="red" id="requisitionListBackBttn">Back</button>
+            <button type="button" class="green" id="addRequisitionFromViewBttn">New Request</button>
           </div>
 
         </div>

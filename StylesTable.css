@@ -1,281 +1,77 @@
-/* User submenu */
-#userDropdown .accordion-content {
-  padding: 6px 10px 6px 20px;
-}
+/* ==========================================================================
+   NKD APP - STYLESTABLE.CSS
+   Data Grids and Tables based on NKD Sadhna
+========================================================================== */
 
-/* User submenu buttons */
+/* User Role Access Menu */
+#userDropdown .accordion-content { padding: 8px; border-top: 1px solid var(--line); }
 #administratorDropdown .user-menu-item,
 #purchaserDropdown .user-menu-item,
 #financeUserDropdown .user-menu-item,
-#secondUserDropdown .user-menu-item,
-#userDropdown .user-menu-item {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 4px 0;
-  padding: 8px 10px;
-  text-align: left;
-  border: none;
-  background: transparent;
-  color: var(--primary-color);
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
+#secondUserDropdown .user-menu-item {
+  display: block; width: 100%; box-sizing: border-box; margin: 4px 0; padding: 10px 12px;
+  text-align: left; border: none; background: transparent; color: var(--ink-700);
+  cursor: pointer; font-size: 15px; border-radius: var(--radius-sm); font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease; box-shadow: none;
 }
-
 #administratorDropdown .user-menu-item:hover,
 #purchaserDropdown .user-menu-item:hover,
 #financeUserDropdown .user-menu-item:hover,
-#secondUserDropdown .user-menu-item:hover,
-#userDropdown .user-menu-item:hover {
-  background-color: var(--secondary-color);
-  color: #fff;
-}
+#secondUserDropdown .user-menu-item:hover { background-color: var(--brand-50); color: var(--brand-800); transform: none; }
 
-/* Requisition table container */
+/* Table Container (matches .collection-table-container) */
 #requisitionTableContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 100%;
-  padding: 0;
-  box-sizing: border-box;
+  display: flex; flex-direction: column; width: 100%; margin: 16px 0 0; padding: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
 }
 
-/* Preserve native table layout */
-#requisitionTable tbody {
-  display: table-row-group;
-}
+.table-scroll { width: 100%; max-height: 65vh; overflow: auto; border-radius: var(--radius); }
 
-#requisitionTable tr {
-  display: table-row;
-}
-
-/* Scrollable table wrapper */
-.table-scroll {
-  width: 100%;
-  max-height: 450px;
-  overflow: auto;
-  border: 1px solid #d9e2ec;
-  border-radius: 8px;
-  background: #fff;
-}
-
-/* Requisition table */
-#requisitionTable {
-  width: 100%;
-  min-width: 900px;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: #fff;
-}
-
-#requisitionTable thead {
-  display: table-header-group;
-}
-
-#requisitionTable thead tr {
-  display: table-row;
-}
+/* Main Table Elements */
+#requisitionTable { width: 100%; min-width: 900px; border-collapse: separate; border-spacing: 0; font-size: 14px; background: var(--surface); }
 
 #requisitionTable thead th {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: var(--primary-color);
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 10px 12px;
-  border: none;
-  border-bottom: 2px solid var(--secondary-color);
-  white-space: nowrap;
-  text-align: left;
+  position: sticky; top: 0; z-index: 10;
+  background: var(--brand-700); color: #fff;
+  padding: 12px 14px; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.02em; text-align: left; white-space: nowrap; border: none;
 }
 
-#requisitionTable th,
-#requisitionTable td {
-  padding: 9px 12px;
-  border: none;
-  border-bottom: 1px solid #e2e8f0;
-  white-space: nowrap;
-  vertical-align: middle;
-}
+#requisitionTable th, #requisitionTable td { padding: 11px 14px; white-space: nowrap; vertical-align: middle; border: none; border-bottom: 1px solid var(--line); color: var(--ink-700); }
 
-#requisitionTable th {
-  font-weight: 600;
-}
+/* Table Rows */
+#requisitionTable tbody tr { background-color: var(--surface); transition: background-color 0.15s ease; }
+#requisitionTable tbody tr:nth-child(even) { background-color: var(--surface-2); }
+#requisitionTable tbody tr:hover { background-color: var(--brand-50); }
+#requisitionTable tbody tr:last-child td { border-bottom: none; }
 
-#requisitionTable tbody tr {
-  background-color: #fff;
-  transition: background-color 0.15s ease;
-}
+/* Sorting */
+#requisitionTable th.sortable { cursor: pointer; user-select: none; }
+#requisitionTable th.sortable:hover { background-color: var(--brand-800); }
+.sort-icon { margin-left: 5px; font-size: 11px; color: var(--brand-100); }
 
-#requisitionTable tbody tr:nth-child(even) {
-  background-color: #f5f9ff;
-}
-
-#requisitionTable tbody tr:hover {
-  background-color: #e8f1fb;
-}
-
-#requisitionTable tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* Sortable headers */
-#requisitionTable th.sortable {
-  cursor: pointer;
-  user-select: none;
-}
-
-#requisitionTable th.sortable:hover {
-  background-color: var(--secondary-color);
-}
-
-.sort-icon {
-  margin-left: 5px;
-  font-size: 11px;
-  color: #dbeafe;
-}
-
-/* Table action buttons */
+/* Buttons inside Table */
 #requisitionTable .table-process-btn {
-  width: auto;
-  min-width: 70px;
-  margin: 0;
-  padding: 6px 12px;
-  border: 1px solid var(--secondary-color);
-  border-radius: 6px;
-  background-color: #eef5ff;
-  color: var(--primary-color);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  width: auto; min-width: 70px; margin: 0; padding: 6px 12px; min-height: auto;
+  border: 1px solid var(--brand-200); border-radius: var(--radius-sm);
+  background-color: var(--surface); color: var(--brand-800);
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s ease;
 }
+#requisitionTable .table-process-btn:hover { background-color: var(--brand-50); transform: translateY(-1px); filter: none; }
+#requisitionTable .table-process-btn:active { transform: translateY(0); }
 
-#requisitionTable .table-process-btn:hover {
-  background-color: var(--secondary-color);
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-#requisitionTable .table-process-btn:active {
-  transform: translateY(0);
-}
-
-/* Table search toolbar */
-.table-toolbar {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  flex-shrink: 0;
-}
-
+/* Table Toolbar / Search */
+.table-toolbar { display: flex; width: 100%; justify-content: flex-end; padding: 14px 16px; border-bottom: 1px solid var(--line); }
 .table-search {
-  width: 250px;
-  padding: 8px 10px;
-  box-sizing: border-box;
+  width: 250px; max-width: 100%; margin: 0; padding: 10px 14px; font-size: 14px;
+  border-radius: var(--radius); border: 1.5px solid var(--line-strong);
+  background: var(--surface); color: var(--ink-900);
 }
+.table-search:focus { border-color: var(--brand-600); box-shadow: var(--ring); outline: none; }
 
-/* Requisition information row */
-.requisition-info-row {
-  display: grid;
-  grid-template-columns: auto auto auto minmax(100px, 1fr) auto auto;
-  align-items: center;
-  column-gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 10px 0;
-}
-
-.requisition-info-row label {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  white-space: nowrap;
-  line-height: 32px;
-}
-
-.requisition-info-row span {
-  min-width: 0;
-  height: 32px;
-  margin: 0;
-  padding: 0;
-  line-height: 32px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#actionRequisitionDate {
-  min-width: 90px;
-}
-
-#actionRequisitionDescription {
-  min-width: 0;
-  width: 100%;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-break: break-word;
-  font-weight: 700;
-  color: #172b4d;
-  text-align: left;
-}
-
-#actionRequisitionAmount {
-  min-width: 60px;
-}
-
-/* Requisition summary */
-.requisition-summary {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 20px;
-  width: 100%;
-  margin: 8px 0 14px;
-  padding: 10px 16px;
-  box-sizing: border-box;
-  background: #eef5ff;
-  border-left: 3px solid var(--primary-color);
-  border-radius: 6px;
-  text-align: left;
-}
-
-.summary-item {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  text-align: left;
-}
-
-.summary-label {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  color: #5f6b7a;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.summary-value {
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #172b4d;
-  line-height: 1.3;
-  text-align: left;
-}
-
-.summary-description {
-  grid-column: 1 / -1;
-  align-items: flex-start;
-  text-align: left;
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  #requisitionTable th, #requisitionTable td { padding: 10px 12px; }
+  .table-toolbar { padding: 10px 12px; }
+  .table-search { width: 100%; }
 }

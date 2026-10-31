@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     INDEX_DB.storeName,
   );
   if (loginData) {
-    loginData.role = "User";
+    loginData.role = "Purchaser";
     // Auto login
     renderMenus(loginData);
     SHOW_SPECIFIC_DIV("userMenuPopup");

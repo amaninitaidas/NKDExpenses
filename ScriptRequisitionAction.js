@@ -5,7 +5,7 @@ const requisitionActionConfigs = {
             { id: "approvedAmount", label: "Approved Amount", type: "text" },
             { id: "approvedComment", label: "Comment", type: "text" },
             {
-                id: "financeCategory",label: "Category",type: "select",valueKey: "requestCategory",
+                id: "financeCategory", label: "Category", type: "select", valueKey: "requestCategory",
                 options: [
                     { value: "", text: "-- Select Category --" },
                     { value: "Congregation", text: "Congregation" },
@@ -13,7 +13,7 @@ const requisitionActionConfigs = {
                 ]
             },
             {
-                id: "financeSubCategory",label: "Sub Category",type: "select",valueKey: "requestSubCategory",
+                id: "financeSubCategory", label: "Sub Category", type: "select", valueKey: "requestSubCategory",
                 options: [
                     { value: "", text: "-- Select Sub Category --" },
                     { value: "Printing", text: "Printing" },
@@ -36,7 +36,7 @@ const requisitionActionConfigs = {
     Financer: {
         fields: [
             {
-                id: "financeCategory",label: "Category",type: "select",valueKey: "requestCategory",
+                id: "financeCategory", label: "Category", type: "select", valueKey: "requestCategory",
                 options: [
                     { value: "", text: "-- Select Category --" },
                     { value: "Congregation", text: "Congregation" },
@@ -44,7 +44,7 @@ const requisitionActionConfigs = {
                 ]
             },
             {
-                id: "financeSubCategory",label: "Sub Category",type: "select",valueKey: "requestSubCategory",
+                id: "financeSubCategory", label: "Sub Category", type: "select", valueKey: "requestSubCategory",
                 options: [
                     { value: "", text: "-- Select Sub Category --" },
                     { value: "Printing", text: "Printing" },
@@ -94,11 +94,11 @@ $(document).on("click", "#approveRequisitionBttn", function () {
 
 
 function renderRequisitionActionFields(requisition) {
-
     const role = loginData.role;    
     console.log("Role:", role);
     const container = $("#requisitionActionFields");
     container.empty();
+    
     const config = requisitionActionConfigs[role];
     if (!config || !config.fields?.length) {
         console.log("No data for role");
@@ -107,6 +107,7 @@ function renderRequisitionActionFields(requisition) {
 
     const fieldsHtml = config.fields.map(field => {
         let fieldHtml = "";
+        
         if (field.type === "select") {
             const selectedValue = field.valueKey
                 ? String(requisition?.[field.valueKey] || "")
@@ -123,15 +124,12 @@ function renderRequisitionActionFields(requisition) {
                 .join("");
 
             fieldHtml = `
-                <select
-                    class="width70"
-                    id="${field.id}">
+                <select id="${field.id}" required>
                     ${optionsHtml}
                 </select>
             `;
 
         } else {
-
             const fieldValue = field.valueKey
                 ? requisition?.[field.valueKey] || ""
                 : "";
@@ -139,31 +137,32 @@ function renderRequisitionActionFields(requisition) {
             fieldHtml = `
                 <input
                     type="${field.type}"
-                    class="width70"
                     id="${field.id}"
                     value="${fieldValue}"
+                    placeholder="Enter ${field.label}"
+                    required
                 />
             `;
         }
 
+        // Generate clean control rows
         return `
             <div class="controlRow">
-                <label class="width30" for="${field.id}">
-                    ${field.label}:
+                <label class="required" for="${field.id}">
+                    ${field.label}
                 </label>
-
                 ${fieldHtml}
             </div>
         `;
 
     }).join("");
 
-    container.html(fieldsHtml);
+    // Wrap all fields inside a single form-section container so they span the full width correctly
+    container.html(`<div class="form-section">${fieldsHtml}</div>`);
 }
 
 
 function openRequisitionAction(requisitionId) {
-
     const requisition = requisitionData.find(
         item => item.requisitionId === requisitionId
     );
@@ -187,16 +186,12 @@ function openRequisitionAction(requisitionId) {
     $("#actionRequisitionAmount")
         .text(requisition.requestAmount ?? "");
 
-    // Render role-specific fields and pre-populate values
     renderRequisitionActionFields(requisition);
-
     $("#viewRequisitionsData").hide();
-
     $("#actionOnRequisitionId").css("display", "flex");
 }
 
 async function cancelRequisitionAction(requisitionId) {
-
     const requisition = requisitionData.find(
         item => item.requisitionId === requisitionId
     );
@@ -227,10 +222,6 @@ async function cancelRequisitionAction(requisitionId) {
         SHOW_ERROR_POPUP("Error :- " + ex);
     }
 }
-
-  
-
-
 
 function resetRequisitionActionData() {
     const role = loginData.role;   
@@ -295,9 +286,6 @@ async function updateRequisition(action) {
         financeComment: ""
     };
 
-    /*
-     * Read fields according to logged-in role
-     */
     if (role === "Admin") {
         inputData.approvedAmount = $("#approvedAmount").val().trim();
         inputData.approvedComment = $("#approvedComment").val().trim();
