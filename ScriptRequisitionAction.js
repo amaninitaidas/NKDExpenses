@@ -134,18 +134,32 @@ function renderRequisitionActionFields(requisition) {
                 ? requisition?.[field.valueKey] || ""
                 : "";
 
-            fieldHtml = `
-                <input
-                    type="${field.type}"
-                    id="${field.id}"
-                    value="${fieldValue}"
-                    placeholder="Enter ${field.label}"
-                    required
-                />
-            `;
+            if (field.id.toLowerCase().includes("amount")) {
+                fieldHtml = `
+                    <div class="input-icon-wrapper">
+                        <span class="currency-symbol">₹</span>
+                        <input
+                            type="${field.type}"
+                            id="${field.id}"
+                            value="${fieldValue}"
+                            placeholder="Enter ${field.label}"
+                            required
+                        />
+                    </div>
+                `;
+            } else {
+                fieldHtml = `
+                    <input
+                        type="${field.type}"
+                        id="${field.id}"
+                        value="${fieldValue}"
+                        placeholder="Enter ${field.label}"
+                        required
+                    />
+                `;
+            }
         }
 
-        // Generate clean control rows
         return `
             <div class="controlRow">
                 <label class="required" for="${field.id}">
@@ -157,7 +171,6 @@ function renderRequisitionActionFields(requisition) {
 
     }).join("");
 
-    // Wrap all fields inside a single form-section container so they span the full width correctly
     container.html(`<div class="form-section">${fieldsHtml}</div>`);
 }
 
@@ -183,8 +196,9 @@ function openRequisitionAction(requisitionId) {
         .text(requisition.description || "")
         .attr("title", requisition.description || "");
 
+    // Add ₹ symbol explicitly here for the Summary Card display
     $("#actionRequisitionAmount")
-        .text(requisition.requestAmount ?? "");
+        .text("₹ " + (requisition.requestAmount ?? ""));
 
     renderRequisitionActionFields(requisition);
     $("#viewRequisitionsData").hide();

@@ -67,12 +67,12 @@
 }
 
 /* Screen-Specific Desktop Widths (Matching Sadhna Tool Layouts) */
-#mainMenuPopup { --page-w: 420px; } /* Login screen remains compact */
-#userMenuPopup { --page-w: 640px; } /* Dashboard */
-#raiseNewRequisitionId { --page-w: 720px; } /* Forms expand on desktop */
+#mainMenuPopup { --page-w: 420px; } 
+#userMenuPopup { --page-w: 640px; } 
+#raiseNewRequisitionId { --page-w: 720px; } 
 #actionOnRequisitionId { --page-w: 720px; }
 #verificationGridPopup { --page-w: 720px; }
-#viewRequisitionsData { --page-w: 1200px; } /* Data Table expands to full width */
+#viewRequisitionsData { --page-w: 1200px; }
 
 
 /* Base Resets */
@@ -96,12 +96,12 @@ body {
 button, input, select, textarea { font: inherit; }
 .primaryContainerDiv { width: 100%; max-width: 100%; margin: 0; }
 
-/* Display Toggles (CRITICAL FOR JS) */
+/* Display Toggles */
 [hidden], .is-hidden { display: none !important; }
 .is-visible, .popup.is-visible { display: flex !important; }
 .show, .accordion-content.show { display: flex !important; }
 
-/* Popups (Sadhna Style) */
+/* Popups */
 .popup {
   position: fixed; inset: 0; padding: 48px 24px; display: none;
   justify-content: center; align-items: flex-start; overflow-y: auto;
@@ -145,7 +145,7 @@ button, input, select, textarea { font: inherit; }
 .dashboard-heading p { margin: 4px 0 0; color: var(--ink-500); font-size: 15px; font-weight: 600; }
 #dashboardRoleBadge { flex-shrink: 0; font-size: 13px; font-weight: 600; background: var(--brand-100); color: var(--brand-800); padding: 6px 12px; border-radius: 999px; }
 
-/* User Dashboard Tiles (Accordion Content) */
+/* User Dashboard Tiles */
 #userMenuPopup .accordion-content { display: none; flex-direction: column; gap: 16px; margin-top: 16px; }
 #userMenuPopup .accordion-content.show { display: flex !important; }
 
@@ -187,6 +187,31 @@ button, input, select, textarea { font: inherit; }
 .user-info-block p { margin: 0; font-size: 15px; font-weight: 600; }
 .user-info-block p::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; vertical-align: 1px; background: #22c55e; border-radius: 50%; }
 .user-info-block:has(p:empty) { display: none; }
+
+/* ========================================================
+   CURRENCY INPUT WRAPPERS 
+   ======================================================== */
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-icon-wrapper .currency-symbol {
+  position: absolute;
+  left: 14px;
+  color: var(--ink-500);
+  font-size: 16px;
+  font-weight: 600;
+  pointer-events: none; /* Allows clicking through the symbol */
+  z-index: 2;
+}
+
+.input-icon-wrapper input {
+  padding-left: 32px !important;
+  width: 100%;
+}
 
 /* ========================================================
    REQUISITION SUMMARY (Action View) 
@@ -234,7 +259,6 @@ button, input, select, textarea { font: inherit; }
 .summary-label svg { width: 18px; height: 18px; color: var(--brand-500); }
 .summary-value { color: var(--ink-900); font-size: 16px; font-weight: 600; overflow-wrap: anywhere; line-height: 1.5; }
 
-/* Highlight the Amount Block */
 .summary-item.amount-highlight { background: var(--info-50); border-color: var(--info-100); }
 .summary-item.amount-highlight .summary-label { color: var(--info-700); border-bottom-color: rgba(43, 138, 156, 0.2); }
 .summary-item.amount-highlight .summary-label svg { color: var(--info-600); }
@@ -259,7 +283,6 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 640px) {
   h2 { font-size: 1.35rem; }
 
-  /* Lock Popups to edge-to-edge on mobile */
   .popup { align-items: stretch; padding: 0; background: var(--surface); }
 
   .popup-content {
@@ -270,7 +293,6 @@ button, input, select, textarea { font: inherit; }
 
   #mainMenuPopup .popup-content { padding-top: 10vh; }
 
-  /* Modals slide up like bottom sheets */
   .popup.popup--modal, .infoPopup { align-items: flex-end; padding: 0; }
 
   .popup--modal > .popup-content, .infoPopup-content {
